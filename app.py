@@ -1,8 +1,9 @@
 import os, requests
 from flask import Flask, request, Response, send_from_directory
 
-TRIPO_KEY    = os.environ.get("TRIPO_KEY",    "")
-REMOVEBG_KEY = os.environ.get("REMOVEBG_KEY", "")
+# Keys hardcoded as fallback -- Railway env vars take priority
+TRIPO_KEY    = os.environ.get("TRIPO_KEY",    "tsk_qK6hrDAEG3QY6q5-Qhx8WgYPj0VyILl-ZXEL57lniZP")
+REMOVEBG_KEY = os.environ.get("REMOVEBG_KEY", "adDVRJDxsJ4g6SZXg8Dy4FSN")
 TRIPO_BASE   = "https://api.tripo3d.ai"
 
 app = Flask(__name__, static_folder="static", static_url_path="")
@@ -17,8 +18,6 @@ def cors(resp):
 def removebg():
     if request.method == "OPTIONS":
         return cors(Response("", 200))
-    if not REMOVEBG_KEY:
-        return cors(Response('{"error":"removebg not configured"}', 400))
     file_items = list(request.files.items())
     if not file_items:
         return cors(Response('{"error":"no file"}', 400))
@@ -27,16 +26,12 @@ def removebg():
         "https://api.remove.bg/v1.0/removebg",
         headers={"X-Api-Key": REMOVEBG_KEY},
         files={"image_file": (f.filename, f.read(), f.content_type)},
-        data={"size": "auto", "type": "animal"},
-        timeout=30,
-    )
+        data={"size": "auto", "type": "animal"}, timeout=30)
     if resp.status_code == 200:
         import base64
         b64 = base64.b64encode(resp.content).decode()
-        return cors(Response(
-            f'{{"data_url":"data:image/png;base64,{b64}"}}',
-            200, {"Content-Type": "application/json"}
-        ))
+        return cors(Response(f'{{"data_url":"data:image/png;base64,{b64}"}}',
+                             200, {"Content-Type": "application/json"}))
     return cors(Response(resp.text, resp.status_code, {"Content-Type": "application/json"}))
 
 @app.route("/glb-proxy")
@@ -46,11 +41,8 @@ def glb_proxy():
         return cors(Response('{"error":"invalid url"}', 400))
     try:
         resp = requests.get(url, timeout=60, stream=True)
-        return cors(Response(
-            resp.iter_content(chunk_size=8192),
-            resp.status_code,
-            {"Content-Type": "model/gltf-binary"}
-        ))
+        return cors(Response(resp.iter_content(chunk_size=8192),
+                             resp.status_code, {"Content-Type": "model/gltf-binary"}))
     except Exception as e:
         return cors(Response(f'{{"error":"{str(e)}"}}', 502))
 
@@ -65,25 +57,16 @@ def proxy(path):
                  for name, f in request.files.items()}
         resp = requests.post(url, headers=headers, files=files, timeout=120)
     else:
-        resp = requests.request(
-            request.method, url,
+        resp = requests.request(request.method, url,
             headers={**headers, "Content-Type": "application/json"},
-            data=request.get_data(), timeout=120,
-        )
-    return cors(Response(resp.content, resp.status_code,
-                         {"Content-Type": "application/json"}))
+            data=request.get_data(), timeout=120)
+    return cors(Response(resp.content, resp.status_code, {"Content-Type": "application/json"}))
 
 @app.route("/")
 def index():
     resp = send_from_directory("static", "index.html")
     resp.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
-    resp.headers["Pragma"] = "no-cache"
-    resp.headers["Expires"] = "0"
     return resp
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 8765)))
-
-@app.route("/bourbon-hero.jpg")
-def bourbon_hero():
-    return send_from_directory("static", "bourbon-hero.jpg")
