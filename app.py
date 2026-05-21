@@ -75,7 +75,15 @@ def proxy(path):
 
 @app.route("/")
 def index():
-    return send_from_directory("static", "index.html")
+    resp = send_from_directory("static", "index.html")
+    resp.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
+    resp.headers["Pragma"] = "no-cache"
+    resp.headers["Expires"] = "0"
+    return resp
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 8765)))
+
+@app.route("/bourbon-hero.jpg")
+def bourbon_hero():
+    return send_from_directory("static", "bourbon-hero.jpg")
