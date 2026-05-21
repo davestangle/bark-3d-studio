@@ -90,7 +90,7 @@ header{
   background:var(--navy-mid);border:1px solid var(--border);
   border-radius:4px;overflow:hidden;
   position:relative;
-  aspect-ratio:16/10;
+  aspect-ratio:3/5;
   display:flex;align-items:center;justify-content:center;
 }
 .ba-label{
@@ -196,11 +196,13 @@ footer p{font-size:11px;font-weight:300;color:var(--muted);line-height:1.8;}
   header{padding:16px 24px;}
   .hero{padding:100px 24px 60px;}
   .before-after{grid-template-columns:1fr 32px 1fr;}
-  .section{padding:64px 24px;}
+  .section{padding:40px 20px;}
   .photo-steps{grid-template-columns:1fr;}
   .dos-grid{grid-template-columns:1fr;}
   .result-grid{grid-template-columns:1fr;}
-  .upload-box{padding:32px 20px;}
+  .section-title{font-size:26px;}
+  .result-viewer{min-height:320px;}
+  .upload-box{padding:20px 16px;}
 }
 @media(max-width:480px){
   /* Stack hero text, then side-by-side panels, then CTA */
@@ -214,6 +216,10 @@ footer p{font-size:11px;font-weight:300;color:var(--muted);line-height:1.8;}
     gap:0;
     width:100%;
   }
+  .upload-area{min-height:180px;}
+  .progress-wrap{padding:24px 20px;}
+  .progress-headline{font-size:20px;}
+  .upload-box{padding:16px 14px;}
   .ba-panel{aspect-ratio:3/4;}
   .ba-arrow svg{width:18px;height:18px;}
   .header-pill{display:none;}
@@ -492,6 +498,9 @@ function showResult(data) {
     mv.setAttribute('shadow-intensity','0.8'); mv.setAttribute('environment-image','neutral');
     mv.setAttribute('exposure','1'); mv.setAttribute('auto-rotate-delay','500');
     mv.setAttribute('rotation-per-second','25deg');
+    mv.setAttribute('camera-orbit','0deg 80deg 85%');
+    mv.setAttribute('min-camera-orbit','auto auto 60%');
+    mv.setAttribute('max-camera-orbit','auto auto 120%');
     mv.style.cssText='width:100%;height:460px;background:transparent;--poster-color:transparent;';
     viewer.appendChild(mv);
     document.getElementById('downloadBtn').href = glbUrl;
@@ -533,13 +542,16 @@ async function loadHeroModel() {
     mv.setAttribute('rotation-per-second','20deg'); mv.setAttribute('camera-controls','');
     mv.setAttribute('shadow-intensity','0.5'); mv.setAttribute('environment-image','neutral');
     mv.setAttribute('exposure','1.1');
+    mv.setAttribute('camera-orbit','0deg 75deg 80%');
+    mv.setAttribute('min-camera-orbit','auto auto 60%');
+    mv.setAttribute('max-camera-orbit','auto auto 100%');
     mv.style.cssText='width:100%;height:100%;background:transparent;--poster-color:transparent;';
     wrap.appendChild(mv);
   } catch(e) { console.warn('Hero model failed:', e.message); }
 }
 
 function sleep(ms) { return new Promise(r=>setTimeout(r,ms)); }
-window.addEventListener('load', loadHeroModel);
+window.addEventListener('load', () => { window.scrollTo(0, 0); loadHeroModel(); });
 </script>
 </body>
 </html>
