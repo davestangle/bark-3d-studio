@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>BARK | Immortalize Your Dog</title>
+<title>BARK 3D Studio | Turn Your Dog Into a Sculpture</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
 <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.5.0/model-viewer.min.js"></script>
 <style>
@@ -242,7 +242,7 @@ footer p{font-size:11px;font-weight:300;color:var(--muted);line-height:1.8;}
   <div class="hero-text">
     <div class="eyebrow">Introducing BARK 3D Studio</div>
     <h1>Your dog,<br><em>immortalized.</em></h1>
-    <p class="hero-sub">One photo. One minute. A museum-quality 3D sculpture of your dog, ready to print and hold in your hands.</p>
+    <p class="hero-sub">Upload one photo. We turn it into a museum-quality 3D sculpture of your dog. Paint it, display it, gift it, or keep it forever.</p>
     <div class="hero-cta">
       <a href="#create" class="btn-primary">Immortalize My Dog</a>
     </div>
@@ -267,26 +267,52 @@ footer p{font-size:11px;font-weight:300;color:var(--muted);line-height:1.8;}
   </div>
 </section>
 
+
+<section class="use-cases">
+  <div class="use-cases-inner">
+    <div class="uc-item">
+      <div class="uc-icon">🎁</div>
+      <div class="uc-title">The perfect holiday gift</div>
+      <p class="uc-body">A one-of-a-kind sculpture of someone's dog. Nothing else comes close.</p>
+    </div>
+    <div class="uc-item">
+      <div class="uc-icon">🎨</div>
+      <div class="uc-title">A DIY painting kit</div>
+      <p class="uc-body">Print it in white resin. Families paint their dog's colors on. Hours of joy.</p>
+    </div>
+    <div class="uc-item">
+      <div class="uc-icon">🐾</div>
+      <div class="uc-title">A forever memorial</div>
+      <p class="uc-body">When a dog passes, this is how families hold onto them. The highest-value thing we can offer.</p>
+    </div>
+    <div class="uc-item">
+      <div class="uc-icon">📦</div>
+      <div class="uc-title">BarkBox Perks &amp; retention</div>
+      <p class="uc-body">Reward long-term subscribers. Reduce churn. Something no competitor can touch.</p>
+    </div>
+  </div>
+</section>
+
 <section class="section" id="guide">
   <div class="section-label">Before You Shoot</div>
-  <h2 class="section-title">Getting the photo right<br>is everything.</h2>
+  <h2 class="section-title">The better your photo,<br>the better your sculpture.</h2>
   <div class="photo-steps">
     <div class="step-card">
       <div class="step-num">01</div>
-      <div class="step-title">Get outside.</div>
-      <p class="step-body">Natural light is the single biggest factor. Overcast is ideal. Indoor lighting, flash, or window shadows will hurt the output. If you can only use one tip, it's this one.</p>
+      <div class="step-title">Go outside.</div>
+      <p class="step-body">Natural light makes everything better. Overcast days are perfect. Five minutes in the backyard beats any indoor photo. This is the single biggest thing you can do.</p>
       <span class="step-badge">Natural light only</span>
     </div>
     <div class="step-card">
       <div class="step-num">02</div>
       <div class="step-title">Get on their level.</div>
-      <p class="step-body">Crouch down. Camera at eye level with your dog. Shooting from above distorts body proportions. The AI needs to see the full silhouette to build accurate geometry.</p>
+      <p class="step-body">Crouch down until your camera is at their eye level. Shooting from above makes them look squished. You want to see their full body -- head, chest, legs, tail.</p>
       <span class="step-badge">Eye level, full body</span>
     </div>
     <div class="step-card">
       <div class="step-num">03</div>
-      <div class="step-title">Get them to sit still.</div>
-      <p class="step-body">Motion blur is the enemy. Get them sitting or standing still, facing you or at a slight angle. A treat behind the lens works. Plain background behind them.</p>
+      <div class="step-title">Get them to hold still.</div>
+      <p class="step-body">Hold a treat just above your phone. Get them in a sit. The cleaner the background behind them, the better -- grass, pavement, a blank wall all work great.</p>
       <span class="step-badge">Still &amp; sharp</span>
     </div>
   </div>
@@ -316,7 +342,7 @@ footer p{font-size:11px;font-weight:300;color:var(--muted);line-height:1.8;}
 
 <section class="section" id="create">
   <div class="section-label">Step 02 &mdash; Upload &amp; Generate</div>
-  <h2 class="section-title">Drop your best photo<br>of your dog.</h2>
+  <h2 class="section-title">Upload a photo<br>of your dog.</h2>
   <div class="upload-box">
     <div class="upload-area" id="uploadArea">
       <input type="file" accept="image/*" id="photoInput" onchange="handleUpload(this)" />
@@ -326,7 +352,7 @@ footer p{font-size:11px;font-weight:300;color:var(--muted);line-height:1.8;}
         <path d="M15 10l2-4h6l2 4" stroke="white" stroke-width="2"/>
       </svg>
       <div class="upload-label" id="uploadLabel">Tap to upload your photo</div>
-      <div class="upload-sub" id="uploadSub">JPG or PNG &mdash; max 20MB<br>Outside, eye level, full body, sharp focus</div>
+      <div class="upload-sub" id="uploadSub">JPG or PNG &mdash; any phone camera works<br>Outside, eye level, full body in frame</div>
       <div class="upload-overlay"><span>Change photo</span></div>
     </div>
     <button class="generate-btn" id="generateBtn" onclick="generate()" disabled>
@@ -346,10 +372,10 @@ footer p{font-size:11px;font-weight:300;color:var(--muted);line-height:1.8;}
         <div class="result-viewer" id="resultViewer"></div>
         <div class="result-info">
           <div>
-            <div class="result-headline">Your dog,<br>immortalized.</div>
-            <p class="result-body">This is a 3D model of your dog's sculpture. Drag to rotate it. Download the GLB file to 3D print at home, or send it to any local print shop.</p>
+            <div class="result-headline">There they are.</div>
+            <p class="result-body">Drag to rotate your sculpture. Every angle, every detail. Download the file to print it at home, or send it to a local print shop. Physical prints shipped to your door are coming soon.</p>
             <div class="result-note">
-              <p><strong>Physical prints coming soon.</strong> We're building direct-to-print fulfillment &mdash; a physical sculpture shipped to your door.</p>
+              <p><strong>Physical prints coming soon.</strong> A finished sculpture, printed and shipped to your door. We're building it now &mdash; drop your email to get early access and founding pricing.</p>
             </div>
           </div>
           <div class="result-actions">
@@ -363,7 +389,7 @@ footer p{font-size:11px;font-weight:300;color:var(--muted);line-height:1.8;}
 </section>
 
 <footer>
-  <p>BARK 3D Studio &mdash; Early Access &nbsp;|&nbsp; Co-owned by dogs since 2012.</p>
+  <p>BARK 3D Studio &mdash; Early Access &nbsp;|&nbsp; Holiday gifts. Memorials. DIY painting kits. Perks.<br>Co-owned by dogs since 2012.</p>
 </footer>
 
 <script>
